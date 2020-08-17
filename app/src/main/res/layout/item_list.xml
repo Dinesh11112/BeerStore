@@ -5,6 +5,13 @@
     android:orientation="vertical"
     android:layout_height="wrap_content">
 
+    <Button
+        android:id="@+id/checkList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CheckList"
+        android:visibility="gone"/>
+
     <androidx.cardview.widget.CardView
         app:cardElevation="10dp"
         app:cardCornerRadius="10dp"

@@ -31,6 +31,7 @@ public class DataHelper extends SQLiteOpenHelper {
     }
     public boolean addOne(ModelData data){
         SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues cv =  new ContentValues();
         cv.put(cln_NAME, data.getName());
         cv.put(cln_ADDRESS, data.getAddress());

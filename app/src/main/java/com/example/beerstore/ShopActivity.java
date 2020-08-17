@@ -1,19 +1,29 @@
 package com.example.beerstore;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class ShopActivity extends AppCompatActivity  {
 
+    Button check;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_activity);
-
+        check = findViewById(R.id.checkList);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user.getEmail().equals("dineshboby07@gmail.com")) {
+            check.setVisibility(View.VISIBLE);
+        }
         RecyclerView recyclerView = findViewById(R.id.rView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

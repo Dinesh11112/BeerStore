@@ -2,6 +2,7 @@ package com.example.beerstore;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,21 +11,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class CheckoutActivity extends AppCompatActivity {
     Button btnSubmit,btnback;
     private TextView name;
     private EditText address;
     private EditText quantitiy,number;
+    SharedPreferences pref;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checkout_activity);
+        SignIn sign = new SignIn();
+
         btnSubmit = findViewById(R.id.btnsubmit);
         btnback = findViewById(R.id.btnback);
         name = findViewById(R.id.name);
         address = findViewById(R.id.address);
         number = findViewById(R.id.number);
         quantitiy = findViewById(R.id.quantity);
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            name.setText(user.getEmail());
+        }
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

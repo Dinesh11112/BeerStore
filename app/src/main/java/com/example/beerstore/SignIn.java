@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -22,6 +23,7 @@ public class SignIn extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private EditText email,password;
     private Button signin;
+    SharedPreferences pref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +36,10 @@ public class SignIn extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener(){
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user!=null){
-                    Log.d(TAG,"signed in" + user.getUid());
-                    toastmessage("succesfully signed in"+user.getEmail());
-                }
+               pref = getSharedPreferences(user.getEmail(),MODE_PRIVATE);
             }
         };
+
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +50,9 @@ public class SignIn extends AppCompatActivity {
                     mAuth.signInWithEmailAndPassword(memail,mpass);
                     toastmessage("Signed in Successfully"+ email.getText().toString());
                     Intent i = new Intent(SignIn.this, ShopActivity.class);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("username",memail);
+                    editor.commit();
                     startActivity(i);
                 }
                 else{

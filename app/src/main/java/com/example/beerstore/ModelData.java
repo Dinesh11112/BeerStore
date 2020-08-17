@@ -13,6 +13,9 @@ public class ModelData {
         this.id = id;
     }
 
+    public ModelData() {
+    }
+
     @Override
     public String toString() {
         return "ModelData{" +
